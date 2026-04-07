@@ -1,0 +1,240 @@
+/* ============================================================
+   login-page.css — CSS isolado, sem valores primitivos
+   Todos os valores usam tokens via var(--token) ou tailwind
+   ============================================================ */
+
+/* ─── Keyframes ─────────────────────────────────────────── */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes concentricPulse {
+  0%, 100% { opacity: 0.10; }
+  50%       { opacity: 0.18; }
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg); }
+}
+
+@keyframes orbitReverse {
+  from { transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg); }
+  to   { transform: rotate(-360deg) translateX(var(--orbit-r)) rotate(360deg); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Stagger enter ─────────────────────────────────────── */
+
+.login-stagger {
+  opacity: 0;
+  animation: fadeInUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.stagger-1 { animation-delay: 80ms;  }
+.stagger-2 { animation-delay: 160ms; }
+.stagger-3 { animation-delay: 240ms; }
+.stagger-4 { animation-delay: 320ms; }
+.stagger-5 { animation-delay: 400ms; }
+
+/* ─── Concentric circles ────────────────────────────────── */
+
+.concentric-ring {
+  animation: concentricPulse 6s ease-in-out infinite;
+}
+
+.concentric-ring:nth-child(1) { animation-delay: 0s; }
+.concentric-ring:nth-child(2) { animation-delay: 1.5s; }
+.concentric-ring:nth-child(3) { animation-delay: 3s; }
+
+/* ─── Orbit icons ───────────────────────────────────────── */
+
+.orbit-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--border-focus);
+  opacity: 0.35;
+  margin-top: -12px;
+  margin-left: -12px;
+  animation: orbit var(--orbit-duration, 60s) linear infinite;
+}
+
+.orbit-icon--reverse {
+  animation-name: orbitReverse;
+}
+
+/* ─── Form / Sent state transitions ─────────────────────── */
+
+.login-form-enter {
+  animation: scaleIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.login-sent-enter {
+  animation: scaleIn 0.4s 0.05s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* ─── Input pill ────────────────────────────────────────── */
+
+.login-input {
+  background: var(--surface-card);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: 0.9375rem;
+  padding: 0 1.25rem;
+  height: 52px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.login-input::placeholder {
+  color: var(--text-muted);
+}
+
+.login-input:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--border-focus) 18%, transparent);
+}
+
+/* ─── Tactile button feedback ───────────────────────────── */
+
+.login-btn-primary {
+  background: var(--action-primary);
+  color: var(--action-primary-text);
+  border-radius: var(--radius-full);
+  height: 52px;
+  width: 100%;
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-accent);
+  transition: background 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.login-btn-primary:hover {
+  background: var(--action-primary-hover);
+  box-shadow: 0 6px 24px color-mix(in srgb, var(--action-primary) 35%, transparent);
+}
+
+.login-btn-primary:active {
+  transform: scale(0.96);
+  box-shadow: var(--shadow-accent);
+}
+
+.login-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ─── Resend button ─────────────────────────────────────── */
+
+.login-btn-resend {
+  background: var(--surface-card);
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-full);
+  height: 52px;
+  width: 100%;
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.12s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.login-btn-resend:hover:not(:disabled) {
+  border-color: var(--border-focus);
+}
+
+.login-btn-resend:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.login-btn-resend:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ─── Ghost button (visitor mode) ──────────────────────── */
+
+.login-btn-ghost {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: var(--radius-full);
+  transition: color 0.15s ease, background 0.15s ease;
+  min-height: 40px;
+}
+
+.login-btn-ghost:hover {
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--surface-elevated) 60%, transparent);
+}
+
+/* ─── Loading spinner ───────────────────────────────────── */
+
+.login-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--action-primary-text);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ─── Countdown tabular nums ────────────────────────────── */
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
