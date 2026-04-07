@@ -88,6 +88,7 @@
   margin-top: -12px;
   margin-left: -12px;
   animation: orbit var(--orbit-duration, 60s) linear infinite;
+  will-change: transform;
 }
 
 .orbit-icon--reverse {
@@ -166,6 +167,21 @@
   transform: none;
 }
 
+/* ─── Arrow icon micro-animation ────────────────────────── */
+
+.btn-arrow {
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+  flex-shrink: 0;
+}
+
+.login-btn-primary:hover:not(:disabled) .btn-arrow {
+  transform: translateX(3px);
+}
+
+.login-btn-resend:hover:not(:disabled) .btn-arrow {
+  transform: translateX(3px);
+}
+
 /* ─── Resend button ─────────────────────────────────────── */
 
 .login-btn-resend {
@@ -209,15 +225,21 @@
   font-size: 0.875rem;
   font-weight: 400;
   color: var(--text-secondary);
-  padding: 8px 12px;
+  padding: 8px 16px;
   border-radius: var(--radius-full);
-  transition: color 0.15s ease, background 0.15s ease;
-  min-height: 40px;
+  transition: color 0.15s cubic-bezier(0.2, 0, 0, 1),
+              background 0.15s cubic-bezier(0.2, 0, 0, 1),
+              transform 0.12s cubic-bezier(0.2, 0, 0, 1);
+  min-height: 44px;
 }
 
 .login-btn-ghost:hover {
   color: var(--text-primary);
   background: color-mix(in srgb, var(--surface-elevated) 60%, transparent);
+}
+
+.login-btn-ghost:active {
+  transform: scale(0.96);
 }
 
 /* ─── Loading spinner ───────────────────────────────────── */
@@ -237,4 +259,75 @@
 
 .tabular-nums {
   font-variant-numeric: tabular-nums;
+}
+
+/* ─── Input hover state ─────────────────────────────────── */
+
+.login-input:hover:not(:focus) {
+  border-color: var(--border-strong);
+}
+
+/* ─── Back / "Use another email" button ─────────────────── */
+
+.login-btn-back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  padding: 12px 20px;
+  min-height: 44px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s cubic-bezier(0.2, 0, 0, 1),
+              background 0.15s cubic-bezier(0.2, 0, 0, 1),
+              transform 0.12s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.login-btn-back:hover {
+  color: var(--text-secondary);
+  background: color-mix(in srgb, var(--surface-elevated) 40%, transparent);
+}
+
+.login-btn-back:active {
+  transform: scale(0.96);
+}
+
+/* ─── Subtitle text wrap ─────────────────────────────────── */
+
+.login-subtitle {
+  text-wrap: pretty;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-icon,
+  .orbit-icon--reverse {
+    animation: none;
+    opacity: 0.12;
+  }
+
+  .concentric-ring {
+    animation: none;
+    opacity: 0.12;
+  }
+
+  .login-stagger {
+    animation: none;
+    opacity: 1;
+  }
+
+  .login-form-enter,
+  .login-sent-enter {
+    animation: none;
+    opacity: 1;
+  }
+
+  .login-spinner {
+    animation-duration: 1.5s;
+  }
 }

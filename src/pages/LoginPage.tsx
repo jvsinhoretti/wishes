@@ -301,6 +301,7 @@ function FormState({ email, setEmail, isLoading, onSubmit }: FormStateProps) {
             wishes
           </h1>
           <p
+            className="login-subtitle"
             style={{
               fontFamily: "'Manrope', system-ui, sans-serif",
               fontSize: "0.9375rem",
@@ -344,7 +345,7 @@ function FormState({ email, setEmail, isLoading, onSubmit }: FormStateProps) {
           ) : (
             <>
               Entrar com email
-              <ArrowRight size={16} strokeWidth={2} />
+              <ArrowRight size={16} strokeWidth={2} className="btn-arrow" />
             </>
           )}
         </button>
@@ -442,6 +443,7 @@ function SentState({ email, countdown, canResend, isLoading, onResend, onBack }:
             Verifique seu email
           </h2>
           <p
+            className="login-subtitle"
             style={{
               fontFamily: "'Manrope', system-ui, sans-serif",
               fontSize: "0.875rem",
@@ -487,7 +489,7 @@ function SentState({ email, countdown, canResend, isLoading, onResend, onBack }:
           ) : canResend ? (
             <>
               Reenviar link
-              <ArrowRight size={15} strokeWidth={2} />
+              <ArrowRight size={15} strokeWidth={2} className="btn-arrow" />
             </>
           ) : (
             <>
@@ -506,23 +508,9 @@ function SentState({ email, countdown, canResend, isLoading, onResend, onBack }:
         style={{ textAlign: "center" }}
       >
         <button
+          type="button"
+          className="login-btn-back"
           onClick={onBack}
-          style={{
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            fontFamily: "'Manrope', system-ui, sans-serif",
-            fontSize: "0.8125rem",
-            color: "var(--text-muted)",
-            padding: "4px 0",
-            transition: "color 0.15s ease",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.color = "var(--text-secondary)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.color = "var(--text-muted)";
-          }}
         >
           Usar outro email
         </button>
